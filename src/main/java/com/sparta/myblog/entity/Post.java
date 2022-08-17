@@ -1,15 +1,16 @@
-package com.sparta.myblog.domain;
+package com.sparta.myblog.entity;
 
+import com.sparta.myblog.dto.PostRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@NoArgsConstructor // 기본생성자를 만듭니다.
-@Getter
-@Entity // 테이블과 연계됨을 스프링에게 알려줍니다.
+@NoArgsConstructor // 기본생성자를 자동으로 만듭니다.
+@Getter // setter는 repository에서 자동으로 해주기 때문에 설정 안 함
+@Entity // 데이터베이스 기준으로 테이블 역할을 하는 것을 스프링에게 알려줌
 public class Post extends Timestamped { // 생성,수정 시간을 자동으로 만들어줍니다.
-    @GeneratedValue(strategy = GenerationType.AUTO) // 자동증가명령
+    @GeneratedValue(strategy = GenerationType.AUTO) // id 자동증가명령
     @Id
     private Long id;
 

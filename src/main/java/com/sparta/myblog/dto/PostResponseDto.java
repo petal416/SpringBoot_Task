@@ -1,9 +1,11 @@
-package com.sparta.myblog.domain;
+package com.sparta.myblog.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-public class PostRequestDto {
+@NoArgsConstructor
+public class PostResponseDto {
     private String username;
     private String contents;
     private String title;
