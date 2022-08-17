@@ -1,5 +1,6 @@
 package com.sparta.myblog.service;
 
+import com.sparta.myblog.dto.PwRequestDto;
 import com.sparta.myblog.entity.Post;
 import com.sparta.myblog.repository.PostRepository;
 import com.sparta.myblog.dto.PostRequestDto;
@@ -25,5 +26,25 @@ public class PostService {
         }
         post.update(requestDto);
         return post.getId();
+    }
+
+    @Transactional
+    public Long delete(Long id, PostRequestDto requestDto) {
+        Post post = postRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 글입니다.")
+        );
+        if (!post.getPassword().equals(requestDto.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+        postRepository.deleteById(id);
+        return id;
+    }
+
+    @Transactional
+    public Boolean check(Long id, PwRequestDto requestDto) {
+        Post post = postRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 글입니다.")
+        );
+        return post.getPassword().equals(requestDto.getPassword());
     }
 }

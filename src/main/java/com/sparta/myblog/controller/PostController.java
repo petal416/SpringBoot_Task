@@ -1,5 +1,6 @@
 package com.sparta.myblog.controller;
 
+import com.sparta.myblog.dto.PwRequestDto;
 import com.sparta.myblog.entity.Post;
 import com.sparta.myblog.repository.PostRepository;
 import com.sparta.myblog.dto.PostRequestDto;
@@ -23,14 +24,11 @@ public class PostController {
         return postRepository.save(post);
     }
 
-//    // 게시글 비밀번호 확인
-//    @PostMapping("/posts/{id}")
-//    public Optional<Post> CheckPossword(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
-//        Post post = postRepository.findById(id).orElseThrow(
-//                () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
-//        );
-//        return postRepository.findById(id);
-//    }
+    // 비밀번호 확인
+    @PostMapping("/posts/{id}")
+    public Boolean CheckPassword(@PathVariable Long id, @RequestBody PwRequestDto requestDto) {
+        return postService.check(id, requestDto);
+    }
 
 
     // 전체 게시글 목록 조회
@@ -48,13 +46,7 @@ public class PostController {
     // 게시글 삭제
     @DeleteMapping("/posts/{id}")
     public Long deletePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
-        Post post = postRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("존재하지 않는 글입니다.")
-        );
-        if (!post.getPassword().equals(requestDto.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
-        postRepository.deleteById(id);
+        postService.delete(id, requestDto);
         return id;
     }
 
