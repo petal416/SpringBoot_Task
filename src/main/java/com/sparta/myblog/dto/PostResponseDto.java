@@ -1,13 +1,13 @@
 package com.sparta.myblog.dto;
 
+import com.sparta.myblog.entity.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
 public class PostResponseDto {
-    private String username;
-    private String contents;
-    private String title;
-    private String password;
+    private boolean success;
+    private Post data;
+    private Object error;
 }
