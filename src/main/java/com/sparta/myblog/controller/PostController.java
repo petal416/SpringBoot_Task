@@ -46,14 +46,13 @@ public class PostController {
     // 게시글 삭제
     @DeleteMapping("/posts/{id}")
     public Long deletePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
-        postService.delete(id, requestDto);
+        postRepository.deleteById(id);
         return id;
     }
 
     // 게시글 수정
     @PutMapping("/posts/{id}")
     public Long updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
-        postService.update(id, requestDto);
-        return id;
+        return postService.update(id, requestDto);
     }
 }
